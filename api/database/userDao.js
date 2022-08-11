@@ -1,21 +1,19 @@
-import mysql from 'mysql';
+import mysql from "promise-mysql";
 import config from '../config/config.js';
 
 const connection = mysql.createConnection(config);
 
-const createNewUser = (newUser) =>{
-    connection.connect((err) => {
-        if(err) throw err;
-    }); 
-    
-    let query = `INSERT INTO users (name, email, password) VALUES ('${newUser.name}', '${newUser.email}', '${newUser.password}')`;
-    
-    connection.query(query, (err, result) => {
-        if(err) throw err;
-        return result;
-    });
+const createNewUser = async (newUser) =>{
 
-    connection.end();
+    const query = `INSERT INTO users (name, email, password) VALUES ('${newUser.name}', '${newUser.email}', '${newUser.password}')`;
+
+    try{
+        const result = (await connection).query(query);
+        return result;
+    }
+    catch(error){
+        throw error;
+    }  
 }
 
 export default {createNewUser};
