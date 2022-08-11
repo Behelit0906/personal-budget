@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 11, 2022 at 05:07 PM
+-- Generation Time: Aug 11, 2022 at 09:44 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -32,15 +32,9 @@ CREATE TABLE `operations` (
   `name` varchar(45) NOT NULL,
   `type` varchar(6) NOT NULL,
   `amount` decimal(5,2) NOT NULL,
+  `date` date NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `operations`
---
-
-INSERT INTO `operations` (`id`, `name`, `type`, `amount`, `user_id`) VALUES
-(1, 'fdjrtj', 'e', '500.00', 1);
 
 -- --------------------------------------------------------
 
@@ -54,13 +48,6 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(1, 'Luis', 'luios.salcedo', 'h4h4hh4');
 
 --
 -- Indexes for dumped tables
@@ -93,7 +80,7 @@ ALTER TABLE `operations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
