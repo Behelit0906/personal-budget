@@ -55,9 +55,21 @@ const getOneOperation = async (id) => {
     }
 }
 
+const getAllOperations = async () => {
+    const query = 'SELECT * FROM operations';
+    try{
+        const result = (await connection).query(query);
+        return result;
+    }
+    catch(error){
+        throw error;
+    }
+}
+
 export default {
     createNewOperation, 
     deleteOperation, 
     updateOperation, 
-    getOneOperation
+    getOneOperation,
+    getAllOperations
 };
