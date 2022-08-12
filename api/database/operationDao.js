@@ -44,4 +44,20 @@ const updateOperation = async (changes) => {
 
 };
 
-export default {createNewOperation, deleteOperation, updateOperation};
+const getOneOperation = async (id) => {
+    const query = 'SELECT * FROM operations WHERE id = ?';
+    try{
+        const result = (await connection).query(query, id);
+        return result;
+    }
+    catch(error){
+        throw error;
+    }
+}
+
+export default {
+    createNewOperation, 
+    deleteOperation, 
+    updateOperation, 
+    getOneOperation
+};
