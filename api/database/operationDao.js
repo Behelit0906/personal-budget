@@ -29,4 +29,19 @@ const deleteOperation = async (id) => {
     }
 };
 
-export default {createNewOperation, deleteOperation};
+const updateOperation = async (changes) => {
+    const query = 'UPDATE operations SET name = ?, amount = ?, date = ? WHERE id = ?';
+    const {name, amount, date, id} = changes;
+    const values = [name, amount, date, id];
+
+    try{
+        const result = (await connection).query(query, values);
+        return result;
+    }
+    catch(error){
+        throw error;
+    }
+
+};
+
+export default {createNewOperation, deleteOperation, updateOperation};
