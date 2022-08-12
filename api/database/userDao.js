@@ -14,6 +14,18 @@ const createNewUser = async (newUser) =>{
     catch(error){
         throw error;
     }  
-}
+};
 
-export default {createNewUser};
+const findUserByEmail = async(email) =>{
+    const query = `SELECT * FROM users WHERE email = '${email}'`;
+    try{
+        const result = (await connection).query(query);
+        return result;
+    }
+    catch(error){
+        throw error;
+    } 
+
+};
+
+export default {createNewUser, findUserByEmail};
