@@ -6,7 +6,7 @@ import userRouter from "./v1/routes/userRoutes.js";
 const app = express();
 
 app.use(express.json());
-
+app.use(userRouter);
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}...`);
