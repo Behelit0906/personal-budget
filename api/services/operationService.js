@@ -63,3 +63,5 @@ const getAllOperations = async () => {
     }
 };
 
+export default {getOneOperation, getAllOperations, createNewOperation, deleteOperation, updateOperation};
+
