@@ -8,8 +8,8 @@ const createNewUser = async (newUser) =>{
     const query = `INSERT INTO users (name, email, password) VALUES ('${newUser.name}', '${newUser.email}', '${newUser.password}')`;
 
     try{
-        const result = (await connection).query(query);
-        return result;
+        const result = await (await connection).query(query);
+        return result.affectedRows;
     }
     catch(error){
         throw error;

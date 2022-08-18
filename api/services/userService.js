@@ -5,7 +5,6 @@ import { formatter } from "../helpers/nameFormat.js";
 const createNewUser = async (newUser) => {
 
     const match = await userDao.findUserByEmail(newUser.email);
-    console.log(match);
     if(match.length > 0){
         const error = new Error('Email already registered');
         error.name = 'exists';
@@ -16,8 +15,11 @@ const createNewUser = async (newUser) => {
     newUser.password = bcrypt.hashSync(newUser.password, 10);
 
     try{
-        const result = userDao.createNewUser(newUser);
-        return result;
+        const result = await userDao.createNewUser(newUser);
+        if(result != 1){
+            throw error;
+        }
+        
     }
     catch(error){
         throw error;
