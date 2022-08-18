@@ -4,9 +4,12 @@ import { formatter } from "../helpers/nameFormat.js";
 
 const createNewUser = async (newUser) => {
 
-    const match = userDao.findUserByEmail(newUser.email);
+    const match = await userDao.findUserByEmail(newUser.email);
+    console.log(match);
     if(match.length > 0){
-        return false;
+        const error = new Error('Email already registered');
+        error.name = 'exists';
+        throw error;
     }
 
     newUser.name = formatter(newUser.name);
