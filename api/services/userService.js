@@ -12,8 +12,13 @@ const createNewUser = async (newUser) => {
     newUser.name = formatter(newUser.name);
     newUser.password = bcrypt.hashSync(newUser.password, 10);
 
-    const result = userDao.createNewUser(newUser);
-    return result;
+    try{
+        const result = userDao.createNewUser(newUser);
+        return result;
+    }
+    catch(error){
+        throw error;
+    }
     
 };
 
