@@ -9,8 +9,8 @@ const createNewOperation = async (newOperation) => {
     const values = [name, type, amount, date, user_id];
 
     try{
-        const result = (await connection).query(query, values);
-        return result;
+        const result = await (await connection).query(query, values);
+        return result.affectedRows;
     }
     catch(error){
         throw error;
@@ -21,22 +21,22 @@ const createNewOperation = async (newOperation) => {
 const deleteOperation = async (id) => {
     const query = 'DELETE FROM operations WHERE id = ?';
     try{
-        const result = (await connection).query(query, id);
-        return result;
+        const result = await (await connection).query(query, id);
+        return result.affectedRows;
     }
     catch(error){
         throw error;
     }
 };
 
-const updateOperation = async (changes) => {
-    const query = 'UPDATE operations SET name = ?, amount = ?, date = ? WHERE id = ?';
-    const {name, amount, date, id} = changes;
-    const values = [name, amount, date, id];
+const updateOperation = async (operation) => {
+    const query = `UPDATE operations SET name = ?, amount = ?, date = ? WHERE id = ${operation.id}`;
+    const {name, amount, date} = operation;
+    const values = [name, amount, date];
 
     try{
-        const result = (await connection).query(query, values);
-        return result;
+        const result = await (await connection).query(query, values);
+        return result.affectedRows;
     }
     catch(error){
         throw error;
@@ -47,7 +47,7 @@ const updateOperation = async (changes) => {
 const getOneOperation = async (id) => {
     const query = 'SELECT * FROM operations WHERE id = ?';
     try{
-        const result = (await connection).query(query, id);
+        const result = await (await connection).query(query, id);
         return result;
     }
     catch(error){
@@ -58,7 +58,7 @@ const getOneOperation = async (id) => {
 const getAllOperations = async () => {
     const query = 'SELECT * FROM operations';
     try{
-        const result = (await connection).query(query);
+        const result = await (await connection).query(query);
         return result;
     }
     catch(error){
