@@ -3,10 +3,10 @@ import config from '../config/config.js';
 
 const connection = mysql.createConnection(config);
 
-const createNewOperation = async (newOperation) => {
+const createNewOperation = async (userId, newOperation) => {
     const query = 'INSERT INTO operations (name, type, amount, date, user_id) VALUES (?,?,?,?,?)';
-    const {name, type, amount, date, user_id} = newOperation;
-    const values = [name, type, amount, date, user_id];
+    const {name, type, amount, date} = newOperation;
+    const values = [name, type, amount, date, userId];
 
     try{
         const result = await (await connection).query(query, values);
@@ -18,10 +18,10 @@ const createNewOperation = async (newOperation) => {
 
 };
 
-const deleteOperation = async (id) => {
-    const query = 'DELETE FROM operations WHERE id = ?';
+const deleteOperation = async (userId, operationId) => {
+    const query = 'DELETE FROM operations WHERE id = ? AND user_id = ?';
     try{
-        const result = await (await connection).query(query, id);
+        const result = await (await connection).query(query, [operationId, userId]);
         return result.affectedRows;
     }
     catch(error){
@@ -29,9 +29,9 @@ const deleteOperation = async (id) => {
     }
 };
 
-const updateOperation = async (operation) => {
-    const query = `UPDATE operations SET name = ?, amount = ?, date = ? WHERE id = ${operation.id}`;
-    const {name, amount, date} = operation;
+const updateOperation = async (userId, operationData) => {
+    const query = `UPDATE operations SET name = ?, amount = ?, date = ? WHERE id = ${operationData.id} and user_id=${userId}`;
+    const {name, amount, date} = operationData;
     const values = [name, amount, date];
 
     try{
@@ -44,10 +44,10 @@ const updateOperation = async (operation) => {
 
 };
 
-const getOneOperation = async (id) => {
-    const query = 'SELECT * FROM operations WHERE id = ?';
+const getOneOperation = async (userId, operationId) => {
+    const query = 'SELECT * FROM operations WHERE id = ? and user_id=?';
     try{
-        const result = await (await connection).query(query, id);
+        const result = await (await connection).query(query, [operationId, userId]);
         return result;
     }
     catch(error){
@@ -55,10 +55,10 @@ const getOneOperation = async (id) => {
     }
 }
 
-const getAllOperations = async () => {
-    const query = 'SELECT * FROM operations';
+const getAllOperations = async (userId) => {
+    const query = 'SELECT * FROM operations WHERE user_id = ?';
     try{
-        const result = await (await connection).query(query);
+        const result = await (await connection).query(query, userId);
         return result;
     }
     catch(error){
