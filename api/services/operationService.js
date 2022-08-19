@@ -1,12 +1,12 @@
 import operationDao from '../database/operationDao.js';
 import { formatter } from "../helpers/nameFormat.js";
 
-const createNewOperation = async (newOperation) => {
+const createNewOperation = async (userId, newOperation) => {
 
     newOperation.name = formatter(newOperation.name);
     
     try{
-        const result = await operationDao.createNewOperation(newOperation);
+        const result = await operationDao.createNewOperation(userId, newOperation);
         if(result != 1){
             throw error;
         }
@@ -17,9 +17,9 @@ const createNewOperation = async (newOperation) => {
     }
 };
 
-const deleteOperation = async (id) => {
+const deleteOperation = async (userId, operationId) => {
     try{
-        const result = await operationDao.deleteOperation(id);
+        const result = await operationDao.deleteOperation(userId, operationId);
         if(result != 1){
             throw error;
         }
@@ -29,10 +29,10 @@ const deleteOperation = async (id) => {
     }
 };
 
-const updateOperation = async (operation) => {
+const updateOperation = async (userId, operationData) => {
     operation.name = formatter(operation.name);
     try{
-        const result = await operationDao.updateOperation(operation);
+        const result = await operationDao.updateOperation(userId, operationData);
         if(result != 1){
             throw error;
         }
@@ -42,9 +42,9 @@ const updateOperation = async (operation) => {
     }
 }
 
-const getOneOperation = async (id) => {
+const getOneOperation = async (userId, operationId) => {
     try{
-        const result = await operationDao.getOneOperation(id);
+        const result = await operationDao.getOneOperation(userId, operationId);
         return result;
     }
     catch(error){
@@ -53,9 +53,9 @@ const getOneOperation = async (id) => {
 
 };
 
-const getAllOperations = async () => {
+const getAllOperations = async (userId) => {
     try{
-        const result = await operationDao.getAllOperations();
+        const result = await operationDao.getAllOperations(userId);
         return result;
     }
     catch(error){
