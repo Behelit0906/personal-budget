@@ -19,7 +19,7 @@ const createNewUser = async (newUser) =>{
 const findUserByEmail = async(email) =>{
     const query = `SELECT * FROM users WHERE email = '${email}'`;
     try{
-        const result = (await connection).query(query);
+        const result = await (await connection).query(query);
         return result;
     }
     catch(error){
