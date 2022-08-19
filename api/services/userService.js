@@ -1,5 +1,6 @@
 import userDao from "../database/userDao.js";
 import bcrypt from 'bcrypt';
+import { SignJWT } from "jose";
 import { formatter } from "../helpers/nameFormat.js";
 
 const createNewUser = async (newUser) => {
@@ -12,7 +13,7 @@ const createNewUser = async (newUser) => {
     }
 
     newUser.name = formatter(newUser.name);
-    newUser.password = bcrypt.hashSync(newUser.password, 10);
+    newUser.password = await bcrypt.hash(newUser.password, 10);
 
     try{
         const result = await userDao.createNewUser(newUser);
@@ -27,4 +28,30 @@ const createNewUser = async (newUser) => {
     
 };
 
-export default {createNewUser};
+const userAuthenticator = async (email, password) => {
+    try{
+        
+        const user = await userDao.findUserByEmail(email);
+        if(user.length != 1) return false;
+
+        const passwordIsOk = await bcrypt.compare(password, user[0].password);
+        if(!passwordIsOk) return false;
+
+        //GENERATION TOKEN
+        const jwtConstructor = new SignJWT({ userId:user[0].id });
+        const encoder = new TextEncoder();
+        const jwt = await jwtConstructor.setProtectedHeader({alg: "HS256", typ: "JWT"})
+        .setIssuedAt()
+        .setExpirationTime('1h')
+        .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
+
+        return jwt;
+        
+    }
+    catch(error){
+        throw error;
+    }
+
+};
+
+export default {createNewUser, userAuthenticator};
