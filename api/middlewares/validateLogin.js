@@ -10,22 +10,17 @@ addErrors(ajv, {keepErrors:false});
 const validator = ajv.compile(loginDtoSchema);
 
 const loginValidator = (req, res, next) => {
-    console.log('hola');
-    try{
-        const isDtoValid = validator(req.body);
+    
+    const isDtoValid = validator(req.body);
         
-        if(!isDtoValid){
-            let errors = validator.errors.map((e) => {
-                return e.message;
-            })
-            return res.status(400).send({message:errors});          
-        }
+    if(!isDtoValid){
+        let errors = validator.errors.map((e) => {
+            return e.message;
+        })
+        return res.status(400).send({message:errors});          
+    }
 
-        next();
-    }
-    catch(error){
-        console.log('hola');
-    }
+    next();
     
 }
 
