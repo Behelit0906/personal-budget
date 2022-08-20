@@ -30,10 +30,12 @@ const deleteOperation = async (userId, operationId) => {
 };
 
 const updateOperation = async (userId, operationData) => {
-    operation.name = formatter(operation.name);
+    operationData.name = formatter(operationData.name);
     try{
         const result = await operationDao.updateOperation(userId, operationData);
         if(result != 1){
+            const error = new Error('Operation could not be found');
+            error.name = 'No exists';
             throw error;
         }
     }
