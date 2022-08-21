@@ -1,9 +1,12 @@
 import operationService from "../services/operationService.js";
 
 const createNewOperation = async (req, res) => {
+    const {userId} = req.body;
+    delete req.body.userId;
     const newOperation = req.body;
+
     try{
-        await operationService.createNewOperation(8, newOperation);
+        await operationService.createNewOperation(userId, newOperation);
         res.status(200).send();
     }
     catch(error){
@@ -24,7 +27,7 @@ const createNewOperation = async (req, res) => {
 
 const deleteOperation = async (req, res) => {
     const operationId = req.params.operationId;
-    const userId = 8;
+    const {userId} = req.body;
     try{
         await operationService.deleteOperation(userId, operationId);
         res.status(200).send();
@@ -50,9 +53,9 @@ const updateOperation = async (req, res) => {
     let operationId = req.params.operationId;
     if(isNaN(operationId)) return res.status(400).send({message:"Invalid operation id"});
     operationId = parseInt(operationId);
-    const operationData = req.body;
     const {userId} = req.body;
-    delete operationData.userId;
+    delete req.body.userId;
+    const operationData = req.body;
     operationData.id = operationId;
 
 
