@@ -65,5 +65,30 @@ const getAllOperations = async (userId) => {
     }
 };
 
-export default {getOneOperation, getAllOperations, createNewOperation, deleteOperation, updateOperation};
+const getANumberOfOperations = async (userId, page, limit) => {
+
+    const startIndex = (page - 1)*limit;
+    const values = [userId, startIndex, limit];
+    
+    try{
+        const operations = await getAllOperations(userId);
+        const numberOfPages = Math.ceil(operations.length / limit);
+        
+        const result = await operationDao.getANumberOfOperations(values);
+        return {data:result, numberOfPages:numberOfPages};
+    }
+    catch(error){
+        throw error;
+    }
+
+};
+
+export default {
+    getOneOperation, 
+    getAllOperations, 
+    createNewOperation, 
+    deleteOperation, 
+    updateOperation,
+    getANumberOfOperations
+};
 

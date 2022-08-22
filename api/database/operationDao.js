@@ -66,10 +66,22 @@ const getAllOperations = async (userId) => {
     }
 }
 
+const getANumberOfOperations = async (values) => {
+    const query = 'SELECT id, name, type, amount, date FROM operations WHERE user_id = ? LIMIT ?,?';
+    try{
+        const result = await (await connection).query(query, values);
+        return result;
+    }
+    catch(error){
+        throw error;
+    }
+};
+
 export default {
     createNewOperation, 
     deleteOperation, 
     updateOperation, 
     getOneOperation,
-    getAllOperations
+    getAllOperations,
+    getANumberOfOperations
 };
