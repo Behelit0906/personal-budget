@@ -2,21 +2,14 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
-  extends: [
-    'plugin:vue/vue3-essential',
-    'standard'
-  ],
-  overrides: [
-  ],
+  extends: ['plugin:vue/vue3-essential', 'standard', 'eslint-config-prettier'],
+  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
   },
-  plugins: [
-    'vue'
-  ],
-  rules: {
-  }
-}
+  plugins: ['vue'],
+  rules: {},
+};
