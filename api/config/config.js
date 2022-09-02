@@ -1,12 +1,12 @@
-import { config } from "dotenv";
+import { config } from 'dotenv';
 
 config();
 
 export const PORT = process.env.PORT || 3000;
 
 export default {
-    host: process.env.DB_HOST || "",
-    user: process.env.DB_USER || "",
-    password: process.env.DB_PASS || "",
-    database: process.env.DB_NAME || ""
+  host: process.env.DB_HOST || '',
+  user: process.env.DB_USER || '',
+  password: process.env.DB_PASS || '',
+  database: process.env.DB_NAME || '',
 };

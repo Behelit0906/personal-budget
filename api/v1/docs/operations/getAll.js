@@ -13,15 +13,15 @@
  *               type: object
  *               properties:
  *                 data:
- *                   type: array 
- *                   items: 
+ *                   type: array
+ *                   items:
  *                     type: object
- *                     example: 
- *                              id: 5 
+ *                     example:
+ *                              id: 5
  *                              name: Blue jeans
  *                              type: Egress
  *                              amount: 57
  *                              date: 2022-08-18T05:00:00.000Z
- *                
- *                      
+ *
+ *
  */
