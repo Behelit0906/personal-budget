@@ -10,12 +10,8 @@ const createNewOperation = async data => {
 
 const deleteOperation = async (userId, operationId) => {
   const query = 'DELETE FROM operations WHERE id = ? AND user_id = ?';
-  try {
-    const result = await (await connection).query(query, [operationId, userId]);
-    return result.affectedRows;
-  } catch (error) {
-    throw error;
-  }
+  const result = await (await connection).query(query, [operationId, userId]);
+  return result.affectedRows;
 };
 
 const updateOperation = async (userId, operationData) => {
