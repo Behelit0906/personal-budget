@@ -3,17 +3,9 @@ import config from '../config/config.js';
 
 const connection = mysql.createConnection(config);
 
-const createNewOperation = async (userId, newOperation) => {
+const createNewOperation = async data => {
   const query = 'INSERT INTO operations (name, type, amount, date, user_id) VALUES (?,?,?,?,?)';
-  const { name, type, amount, date } = newOperation;
-  const values = [name, type, amount, date, userId];
-
-  try {
-    const result = await (await connection).query(query, values);
-    return result.affectedRows;
-  } catch (error) {
-    throw error;
-  }
+  await (await connection).query(query, data);
 };
 
 const deleteOperation = async (userId, operationId) => {
