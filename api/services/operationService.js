@@ -2,16 +2,15 @@ import operationDao from '../database/operationDao.js';
 import { formatter } from '../helpers/nameFormat.js';
 
 const createNewOperation = async (userId, newOperation) => {
-  newOperation.name = formatter(newOperation.name);
+  const data = [
+    formatter(newOperation.name),
+    formatter(newOperation.type),
+    newOperation.amount,
+    newOperation.date,
+    userId,
+  ];
 
-  try {
-    const result = await operationDao.createNewOperation(userId, newOperation);
-    if (result != 1) {
-      throw error;
-    }
-  } catch (error) {
-    throw error;
-  }
+  await operationDao.createNewOperation(data);
 };
 
 const deleteOperation = async (userId, operationId) => {
