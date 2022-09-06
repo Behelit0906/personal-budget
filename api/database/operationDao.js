@@ -22,12 +22,8 @@ const updateOperation = async data => {
 
 const getOneOperation = async (userId, operationId) => {
   const query = 'SELECT id, name, type, amount, date FROM operations WHERE id = ? and user_id=?';
-  try {
-    const result = await connection.query(query, [operationId, userId]);
-    return result;
-  } catch (error) {
-    throw error;
-  }
+  const result = await connection.query(query, [operationId, userId]);
+  return result;
 };
 
 const getAllOperations = async userId => {
