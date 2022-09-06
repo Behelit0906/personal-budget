@@ -14,17 +14,10 @@ const deleteOperation = async (userId, operationId) => {
   return result.affectedRows;
 };
 
-const updateOperation = async (userId, operationData) => {
+const updateOperation = async data => {
   const query = 'UPDATE operations SET name = ?, amount = ?, date = ? WHERE id = ? and user_id = ?';
-  const { name, amount, date, id } = operationData;
-  const values = [name, amount, date, id, userId];
-
-  try {
-    const result = await (await connection).query(query, values);
-    return result.affectedRows;
-  } catch (error) {
-    throw error;
-  }
+  const result = await (await connection).query(query, data);
+  return result.affectedRows;
 };
 
 const getOneOperation = async (userId, operationId) => {
