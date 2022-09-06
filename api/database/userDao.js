@@ -9,9 +9,8 @@ const createNewUser = async newUser => {
 };
 
 const findUserByEmail = async email => {
-  const query = `SELECT * FROM users WHERE email = '${email}'`;
-  const result = await connection.query(query);
-  return result;
+  const query = 'SELECT * FROM users WHERE email = ?';
+  return await connection.query(query, email);
 };
 
 export default { createNewUser, findUserByEmail };
