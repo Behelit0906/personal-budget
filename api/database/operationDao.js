@@ -31,14 +31,9 @@ const getAllOperations = async userId => {
   return await connection.query(query, userId);
 };
 
-const getANumberOfOperations = async values => {
-  const query = 'SELECT id, name, type, amount, date FROM operations WHERE user_id = ? LIMIT ?,?';
-  try {
-    const result = await connection.query(query, values);
-    return result;
-  } catch (error) {
-    throw error;
-  }
+const getANumberOfOperations = async data => {
+  const query = 'SELECT * FROM operations WHERE user_id = ? LIMIT ?, ?';
+  return await connection.query(query, data);
 };
 
 export default {
