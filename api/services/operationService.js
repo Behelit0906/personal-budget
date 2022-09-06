@@ -35,12 +35,8 @@ const updateOperation = async (userId, operationData) => {
 };
 
 const getOneOperation = async (userId, operationId) => {
-  try {
-    const result = await operationDao.getOneOperation(userId, operationId);
-    return result;
-  } catch (error) {
-    throw error;
-  }
+  const result = await operationDao.getOneOperation(userId, operationId);
+  return result;
 };
 
 const getAllOperations = async userId => {
