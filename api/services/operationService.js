@@ -44,17 +44,13 @@ const getAllOperations = async userId => {
 
 const getANumberOfOperations = async (userId, page, limit) => {
   const startIndex = (page - 1) * limit;
-  const values = [userId, startIndex, limit];
+  const data = [userId, startIndex, limit];
 
-  try {
-    const operations = await getAllOperations(userId);
-    const numberOfPages = Math.ceil(operations.length / limit);
+  const operations = await getAllOperations(userId);
+  const numberOfPages = Math.ceil(operations.length / limit);
 
-    const result = await operationDao.getANumberOfOperations(values);
-    return { data: result, numberOfPages };
-  } catch (error) {
-    throw error;
-  }
+  const result = await operationDao.getANumberOfOperations(data);
+  return { data: result, numberOfPages };
 };
 
 export default {
