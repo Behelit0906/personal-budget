@@ -35,17 +35,11 @@ const updateOperation = async (userId, operationData) => {
 };
 
 const getOneOperation = async (userId, operationId) => {
-  const result = await operationDao.getOneOperation(userId, operationId);
-  return result;
+  return await operationDao.getOneOperation(userId, operationId);
 };
 
 const getAllOperations = async userId => {
-  try {
-    const result = await operationDao.getAllOperations(userId);
-    return result;
-  } catch (error) {
-    throw error;
-  }
+  return await operationDao.getAllOperations(userId);
 };
 
 const getANumberOfOperations = async (userId, page, limit) => {
