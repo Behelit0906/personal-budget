@@ -17,14 +17,8 @@ const createNewOperation = async (userId, newOperation) => {
 };
 
 const deleteOperation = async (userId, operationId) => {
-  try {
-    const result = await operationDao.deleteOperation(userId, operationId);
-    if (result != 1) {
-      throw error;
-    }
-  } catch (error) {
-    throw error;
-  }
+  const result = await operationDao.deleteOperation(userId, operationId);
+  if (result !== 1) throw error;
 };
 
 const updateOperation = async (userId, operationData) => {
