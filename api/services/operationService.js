@@ -1,6 +1,9 @@
 import operationDao from '../database/operationDao.js';
 import { formatter } from '../helpers/nameFormat.js';
 
+const error = new Error('Operation could not be found');
+error.name = 'No exists';
+
 const createNewOperation = async (userId, newOperation) => {
   const data = [
     formatter(newOperation.name),
