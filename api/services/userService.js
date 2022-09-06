@@ -11,17 +11,8 @@ const createNewUser = async newUser => {
     throw error;
   }
 
-  newUser.name = formatter(newUser.name);
-  newUser.password = await bcrypt.hash(newUser.password, 10);
-
-  try {
-    const result = await userDao.createNewUser(newUser);
-    if (result != 1) {
-      throw error;
-    }
-  } catch (error) {
-    throw error;
-  }
+  const data = [formatter(newUser.name), newUser.email, await bcrypt.hash(newUser.password, 10)];
+  await userDao.createNewUser(data);
 };
 
 const userAuthenticator = async (email, password) => {
