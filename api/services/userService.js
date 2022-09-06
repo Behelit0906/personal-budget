@@ -16,26 +16,22 @@ const createNewUser = async newUser => {
 };
 
 const userAuthenticator = async (email, password) => {
-  try {
-    const user = await userDao.findUserByEmail(email);
-    if (user.length != 1) return false;
+  const user = await userDao.findUserByEmail(email);
+  if (user.length !== 1) return false;
 
-    const passwordIsOk = await bcrypt.compare(password, user[0].password);
-    if (!passwordIsOk) return false;
+  const passwordIsOk = await bcrypt.compare(password, user[0].password);
+  if (!passwordIsOk) return false;
 
-    // GENERATION TOKEN
-    const jwtConstructor = new SignJWT({ userId: user[0].id });
-    const encoder = new TextEncoder();
-    const jwt = await jwtConstructor
-      .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
-      .setIssuedAt()
-      .setExpirationTime('1h')
-      .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
+  // TOKEN GENERATION
+  const jwtConstructor = new SignJWT({ userId: user[0].id });
+  const encoder = new TextEncoder();
+  const jwt = await jwtConstructor
+    .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+    .setIssuedAt()
+    .setExpirationTime('1h')
+    .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
 
-    return jwt;
-  } catch (error) {
-    throw error;
-  }
+  return jwt;
 };
 
 export default { createNewUser, userAuthenticator };
