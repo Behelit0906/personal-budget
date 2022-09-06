@@ -22,17 +22,16 @@ const deleteOperation = async (userId, operationId) => {
 };
 
 const updateOperation = async (userId, operationData) => {
-  operationData.name = formatter(operationData.name);
-  try {
-    const result = await operationDao.updateOperation(userId, operationData);
-    if (result != 1) {
-      const error = new Error('Operation could not be found');
-      error.name = 'No exists';
-      throw error;
-    }
-  } catch (error) {
-    throw error;
-  }
+  const data = [
+    formatter(operationData.name),
+    operationData.amount,
+    operationData.date,
+    operationData.id,
+    userId,
+  ];
+
+  const result = await operationDao.updateOperation(data);
+  if (result !== 1) throw error;
 };
 
 const getOneOperation = async (userId, operationId) => {
