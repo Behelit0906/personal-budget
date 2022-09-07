@@ -71,6 +71,7 @@ const getAllOperations = async (req, res) => {
     res.status(200).send({ data: result });
   } catch (error) {
     res.status(500).send({ message: 'Oops, something seems to be wrong, please try again later' });
+    console.log(error);
   }
 };
 
