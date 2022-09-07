@@ -1,24 +1,12 @@
 import operationService from '../services/operationService.js';
 
 const createNewOperation = async (req, res) => {
-  const { userId } = req.body;
-  delete req.body.userId;
-  const newOperation = req.body;
-
   try {
-    await operationService.createNewOperation(userId, newOperation);
+    await operationService.createNewOperation(req.body);
     res.status(200).send();
   } catch (error) {
-    let errorCode = 0;
-    let message = '';
-    if (error.name === 'exists') {
-      errorCode = 409;
-      message = error.message;
-    } else {
-      errorCode = 500;
-      message = 'Oops, something seems to be wrong, please try again later';
-    }
-    res.status(errorCode).send({ message });
+    res.status(500).send({ message: 'Oops, something seems to be wrong, please try again later' });
+    console.log(error);
   }
 };
 
