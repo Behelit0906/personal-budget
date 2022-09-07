@@ -81,10 +81,10 @@ const getANumberOfOperations = async (req, res) => {
       .status(400)
       .send({ message: 'Missing page number or limit in the url of the request' });
 
-  const page = parseInt(req.query.page);
-  const limit = parseInt(req.query.limit);
+  const page = Number(req.query.page);
+  const limit = Number(req.query.limit);
 
-  if (!page || !limit)
+  if (!Number.isInteger(page) || !Number.isInteger(limit) || page <= 0 || limit <= 0)
     return res
       .status(400)
       .send({ message: 'Page and limit values must be integers greater than 0' });
@@ -95,8 +95,8 @@ const getANumberOfOperations = async (req, res) => {
     const result = await operationService.getANumberOfOperations(userId, page, limit);
     res.status(200).send(result);
   } catch (error) {
-    console.log(error);
     res.status(500).send({ message: 'Oops, something seems to be wrong, please try again later' });
+    console.log(error);
   }
 };
 
