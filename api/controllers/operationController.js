@@ -12,8 +12,8 @@ const createNewOperation = async (req, res) => {
 
 const deleteOperation = async (req, res) => {
   const operationId = Number(req.params.operationId);
-  if(!Number.isInteger(operationId)) 
-    res.send(400).send({ message: 'Operation id invalid, must be an integer' });
+  if (!Number.isInteger(operationId))
+    return res.status(400).send({ message: 'Operation id invalid, must be an integer' });
 
   const { userId } = req.body;
 
@@ -22,17 +22,18 @@ const deleteOperation = async (req, res) => {
     res.status(200).send();
   } catch (error) {
     if (error.name === 'No exists') res.status(404).send({ message: error.message });
-    else{ 
-      res.send(500).send({message: 'Oops, something seems to be wrong, please try again later' });
+    else {
+      res.send(500).send({ message: 'Oops, something seems to be wrong, please try again later' });
       console.log(error);
     }
+  }
 };
 
 const updateOperation = async (req, res) => {
   const operationId = Number(req.params.operationId);
-  if(!Number.isInteger(operationId)) 
-    res.send(400).send({ message: 'Operation id invalid, must be an integer' });
-  
+  if (!Number.isInteger(operationId))
+    return res.status(400).send({ message: 'Operation id invalid, must be an integer' });
+
   const operationData = Object.assign(req.body);
   operationData.id = operationId;
 
@@ -42,7 +43,7 @@ const updateOperation = async (req, res) => {
   } catch (error) {
     if (error.name === 'No exists') res.status(404).send({ message: error.message });
     else {
-      res.send(500).send({message: 'Oops, something seems to be wrong, please try again later' });
+      res.send(500).send({ message: 'Oops, something seems to be wrong, please try again later' });
       console.log(error);
     }
   }
@@ -50,11 +51,11 @@ const updateOperation = async (req, res) => {
 
 const getOneOperation = async (req, res) => {
   const operationId = Number(req.params.operationId);
-  if(!Number.isInteger(operationId)) 
-    res.send(400).send({ message: 'Operation id invalid, must be an integer' });
+  if (!Number.isInteger(operationId))
+    return res.status(400).send({ message: 'Operation id invalid, must be an integer' });
 
   const { userId } = req.body;
-  
+
   try {
     const result = await operationService.getOneOperation(userId, operationId);
     res.status(200).send({ data: result });
