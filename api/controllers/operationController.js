@@ -49,16 +49,18 @@ const updateOperation = async (req, res) => {
 };
 
 const getOneOperation = async (req, res) => {
-  let operationId = req.params.operationId;
-  if (isNaN(operationId)) return res.status(400).send({ message: 'Invalid operation id' });
-  operationId = parseInt(operationId);
+  const operationId = Number(req.params.operationId);
+  if(!Number.isInteger(operationId)) 
+    res.send(400).send({ message: 'Operation id invalid, must be an integer' });
 
   const { userId } = req.body;
+  
   try {
     const result = await operationService.getOneOperation(userId, operationId);
     res.status(200).send({ data: result });
   } catch (error) {
     res.status(500).send({ message: 'Oops, something seems to be wrong, please try again later' });
+    console.log(error);
   }
 };
 
