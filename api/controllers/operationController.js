@@ -29,29 +29,22 @@ const deleteOperation = async (req, res) => {
 };
 
 const updateOperation = async (req, res) => {
-  let operationId = req.params.operationId;
-  if (isNaN(operationId)) return res.status(400).send({ message: 'Invalid operation id' });
-  operationId = parseInt(operationId);
-  const { userId } = req.body;
-  delete req.body.userId;
-  const operationData = req.body;
+  const operationId = Number(req.params.operationId);
+  if(!Number.isInteger(operationId)) 
+    res.send(400).send({ message: 'Operation id invalid, must be an integer' });
+  
+  const operationData = Object.assign(req.body);
   operationData.id = operationId;
 
   try {
-    await operationService.updateOperation(userId, operationData);
+    await operationService.updateOperation(operationData);
     res.status(200).send();
   } catch (error) {
-    let errorCode = 0;
-    let message = '';
-    if (error.name === 'No exists') {
-      errorCode = 404;
-      message = error.message;
-    } else {
-      errorCode = 500;
+    if (error.name === 'No exists') res.status(404).send({ message: error.message });
+    else {
+      res.send(500).send({message: 'Oops, something seems to be wrong, please try again later' });
       console.log(error);
-      message = 'Oops, something seems to be wrong, please try again later';
     }
-    res.status(errorCode).send({ message });
   }
 };
 
