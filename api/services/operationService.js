@@ -21,13 +21,13 @@ const deleteOperation = async (userId, operationId) => {
   if (result !== 1) throw error;
 };
 
-const updateOperation = async (userId, operationData) => {
+const updateOperation = async operationData => {
   const data = [
     formatter(operationData.name),
     operationData.amount,
     operationData.date,
     operationData.id,
-    userId,
+    operationData.userId,
   ];
 
   const result = await operationDao.updateOperation(data);
