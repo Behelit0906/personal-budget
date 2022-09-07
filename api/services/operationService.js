@@ -4,13 +4,13 @@ import { formatter } from '../helpers/nameFormat.js';
 const error = new Error('Operation could not be found');
 error.name = 'No exists';
 
-const createNewOperation = async (userId, newOperation) => {
+const createNewOperation = async newOperation => {
   const data = [
     formatter(newOperation.name),
     formatter(newOperation.type),
     newOperation.amount,
     newOperation.date,
-    userId,
+    newOperation.userId,
   ];
 
   await operationDao.createNewOperation(data);
