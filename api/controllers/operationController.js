@@ -11,23 +11,21 @@ const createNewOperation = async (req, res) => {
 };
 
 const deleteOperation = async (req, res) => {
-  const operationId = req.params.operationId;
+  const operationId = Number(req.params.operationId);
+  if(!Number.isInteger(operationId)) 
+    res.send(400).send({ message: 'Operation id invalid, must be an integer' });
+
   const { userId } = req.body;
+
   try {
     await operationService.deleteOperation(userId, operationId);
     res.status(200).send();
   } catch (error) {
-    let errorCode = 0;
-    let message = '';
-    if (error.name === 'exists') {
-      errorCode = 409;
-      message = error.message;
-    } else {
-      errorCode = 500;
-      message = 'Oops, something seems to be wrong, please try again later';
+    if (error.name === 'No exists') res.status(404).send({ message: error.message });
+    else{ 
+      res.send(500).send({message: 'Oops, something seems to be wrong, please try again later' });
+      console.log(error);
     }
-    res.status(errorCode).send({ message });
-  }
 };
 
 const updateOperation = async (req, res) => {
