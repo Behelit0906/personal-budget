@@ -25,7 +25,7 @@ const userAuthenticator = async (req, res) => {
   try {
     const result = await userService.userAuthenticator(email, password);
     if (!result) return res.status(401).send({ message: 'Incorrect email or password' });
-    return res.send({ jwt: result });
+    return res.send(result);
   } catch (error) {
     return res
       .status(500)
