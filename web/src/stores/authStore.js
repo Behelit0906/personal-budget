@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { fetchWrapper } from './helpers/fetchWrapper';
-import { useAlertStore } from './stores';
-import { router } from './router';
+import { fetchWrapper } from '../helpers/fetchWrapper';
+import { useAlertStore } from './';
+import { router } from '../router';
 
 const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
@@ -26,7 +26,7 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   const logout = () => {
-    user = '';
+    user.value = '';
     localStorage.removeItem('user');
     router.push('/account/login');
   };
