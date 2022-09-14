@@ -7,7 +7,7 @@ const options = {
     openapi: '3.0.0',
     info: { title: 'Personal Budget API', version: '1.0.0' },
   },
-  apis: ['./api/v1/docs/operations/*.js'],
+  apis: ['./src/v1/docs/operations/*.js'],
 };
 
 // Docs in JSON format

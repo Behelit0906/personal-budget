@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./api/app.js",
+    "dev": "nodemon ./src/app.js",
     "format": "prettier --write .",
     "lint": "eslint --fix . --ext .js"
   },
