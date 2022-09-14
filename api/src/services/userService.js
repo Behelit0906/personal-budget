@@ -31,7 +31,7 @@ const userAuthenticator = async (email, password) => {
     .setExpirationTime('1h')
     .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
 
-  return jwt;
+  return { name: user[0].name, jwt };
 };
 
 export default { createNewUser, userAuthenticator };
