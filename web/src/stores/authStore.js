@@ -7,7 +7,7 @@ import { router } from '../router';
 const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref('');
+  const user = ref(JSON.parse(localStorage.getItem('user')));
   const returnUrl = ref(null);
 
   const login = async (email, password) => {
