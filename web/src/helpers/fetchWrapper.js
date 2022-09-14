@@ -15,6 +15,18 @@ function request(method) {
   };
 }
 
+function authHeader(url) {
+  // return auth header with jwt if user is logged in and request is to the api url
+  const { user } = useAuthStore();
+  const isLoggedIn = !!user?.token;
+  const isApiUrl = url.startsWith(import.meta.env.URL_API);
+  if (isLoggedIn && isApiUrl) {
+    return { Authorization: `Bearer ${user.token}` };
+  } else {
+    return {};
+  }
+}
+
 async function handleResponse(response) {
   const isJson = response.headers?.get('content-type')?.includes('application/json');
   const data = isJson ? await response.json() : null;
