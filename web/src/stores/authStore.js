@@ -9,7 +9,6 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 export const useAuthStore = defineStore('auth', () => {
   const user = ref(JSON.parse(localStorage.getItem('user')));
   const returnUrl = ref(null);
-
   const login = async (email, password) => {
     try {
       user.value = await fetchWrapper.post(`${baseUrl}/login`, {
@@ -18,7 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
       });
 
       localStorage.setItem('user', JSON.stringify(user.value));
-      router.push(this.returnUrl || '/');
+      router.push(returnUrl.value || '/');
     } catch (error) {
       const alertStore = useAlertStore();
       alertStore.error(error);
