@@ -10,7 +10,6 @@ const pages = ref(0);
 
 async function getList() {
 	let temp = await userStore.getANumberOfOperations(page.value, limit.value);
-	console.log(temp);
 	temp.data = temp.data.map(op => {
 		op.date = op.date.match(/[0-9]*-[0-9]*-[0-9]*/g);
 		return op;
@@ -18,8 +17,16 @@ async function getList() {
 	return temp;
 }
 
+onMounted(async () => {
+	const temp = await getList();
+	operationsList.value = temp.data;
+	page.value = temp.numberOfPages;
+});
+
 </script>
 
+
+    
     
 
     
