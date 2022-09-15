@@ -10,7 +10,7 @@ export const router = createRouter({
     { path: '/', component: Home },
     { ...accountRoutes },
     // catch all redirect to home page
-    { path: '/:pathMatch(.*)*', redirect: '/account/login' },
+    { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 });
 
