@@ -10,7 +10,7 @@ const { user } = storeToRefs(authStore);
 const latestOperations = ref([]);
 
 onMounted(async () => {
-	let operations = await userStore.latestOperations();
+	let operations = await userStore.getAllOperations();
 	operations = operations.data.reverse().slice(0, 10);
 
 	for (let i = 0; i < operations.length; i++) {
