@@ -17,16 +17,17 @@ async function getList() {
 	return temp;
 }
 
+async function deleteOperation(id) {
+	await userStore.deleteOperation(id);
+	const temp = await getList();
+	operationsList.value = temp.data;
+	page.value = temp.numberOfPages;
+}
+
 onMounted(async () => {
 	const temp = await getList();
 	operationsList.value = temp.data;
 	page.value = temp.numberOfPages;
 });
 
-</script>
-
-
-    
-    
-
-    
+</script> 
