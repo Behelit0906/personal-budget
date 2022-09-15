@@ -9,4 +9,8 @@ export const useUserStore = defineStore('user', () => {
   const register = async userData => {
     fetchWrapper.post(`${baseUrl}/users/register`, userData);
   };
+
+  const latestOperations = () => fetchWrapper.get(`${baseUrl}/operations/`);
+
+  return { register, latestOperations };
 });
