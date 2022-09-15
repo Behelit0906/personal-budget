@@ -12,5 +12,8 @@ export const useUserStore = defineStore('user', () => {
 
   const getAllOperations = () => fetchWrapper.get(`${baseUrl}/operations/`);
 
-  return { register, getAllOperations };
+  const getANumberOfOperations = (page, limit) =>
+    fetchWrapper.get(`${baseUrl}/operations?page=${page}&limit=${limit}`);
+
+  return { register, getAllOperations, getANumberOfOperations };
 });
