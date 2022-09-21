@@ -18,6 +18,7 @@ const schema = Yup.object().shape({
 });
 
 async function onSubmit(values) {
+    delete values.password_confirmation;
     const userStore = useUserStore();
     const alertStore = useAlertStore();
     try {
