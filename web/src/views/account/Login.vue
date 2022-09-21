@@ -18,29 +18,28 @@ async function onSubmit(values) {
 </script>
 Password must be at least 8 characters, no more than 15 characters, and must include at least one upper case letter, one lower case letter, one numeric digit, and one special character.
 <template>
-    <div class="card m-3">
-        <h4 class="card-header">Login</h4>
-        <div class="card-body">
-            <Form @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
-                <div class="form-group">
-                    <label>Email</label>
-                    <Field name="email" type="text" class="form-control" :class="{ 'is-invalid': errors.email }" />
-                    <div class="invalid-feedback">{{ errors.email }}</div>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <Field name="password" type="password" class="form-control"
-                        :class="{ 'is-invalid': errors.password }" />
-                    <div class="invalid-feedback">{{ errors.password }}</div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary" :disabled="isSubmitting">
-                        <span v-show="isSubmitting" class="spinner-border spinner-border-sm mr-1"></span>
-                        Login
-                    </button>
-                    <router-link to="register" class="btn btn-link">Register</router-link>
-                </div>
-            </Form>
+    <h4 class="header">Login</h4>
+    <Form class="form" @submit="onSubmit" :validation-schema="schema" v-slot="{ errors, isSubmitting }">
+        <div>
+            <p class="gray-font">Email</p>
+            <Field class="input" name="email" type="text" :class="{ 'is-invalid': errors.email }"
+                placeholder="Type your email" />
+            <div class="feedback gray-font">{{ errors.email }}</div>
         </div>
-    </div>
+        <div>
+            <p class="gray-font">Password</p>
+            <Field class="input" name="password" type="password" :class="{ 'is-invalid': errors.password }"
+                placeholder="Type your password" />
+            <div class="feedback gray-font">{{ errors.password }}</div>
+        </div>
+        <button class="button">Login</button>
+        <router-link to="register" class="link gray-font">Or Sign Up</router-link>
+    </Form>
 </template>
+
+<style scoped>
+.form {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+</style>
