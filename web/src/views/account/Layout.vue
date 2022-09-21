@@ -11,10 +11,66 @@ if (authStore.user) {
     
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-sm-8 offset-sm-2 mt-5">
-                <router-view />
-            </div>
-        </div>
+        <router-view />
     </div>
 </template>
+
+<style>
+.container {
+    max-width: 350px;
+    margin: 5% auto;
+    padding-top: 1%;
+    padding-bottom: 5%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+.header {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.input {
+    width: 98%;
+    margin-bottom: 10px;
+    padding: 5px 5px 5px 0;
+    border: none;
+    font-weight: 300;
+    border-bottom: 1px solid #757575;
+}
+
+.gray-font {
+    color: #757575;
+}
+
+.feedback {
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+}
+
+.button {
+    display: block;
+    width: 70%;
+    margin: 15% auto 10% auto;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #4ecca3;
+    cursor: pointer;
+}
+
+.link {
+    display: block;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5%;
+
+}
+
+.input:focus {
+    outline: none;
+}
+</style>
