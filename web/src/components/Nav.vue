@@ -13,7 +13,7 @@ function active() {
         isActive.value = 'hide';
         setTimeout(() => {
             isActive.value = '';
-        }, 500);
+        }, 490);
     }
 }
 
