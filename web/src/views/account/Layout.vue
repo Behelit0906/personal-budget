@@ -17,7 +17,7 @@ if (authStore.user) {
 
 <style>
 .container {
-    max-width: 350px;
+    max-width: 340px;
     margin: 5% auto;
     padding-top: 1%;
     padding-bottom: 5%;
