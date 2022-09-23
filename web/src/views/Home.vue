@@ -30,7 +30,7 @@ onMounted(async () => {
 	operations = operations.data.reverse().slice(0, 10);
 
 	for (let i = 0; i < operations.length; i++) {
-		latestOperations.value.push(operations[i].name);
+		latestOperations.value.push(operations[i]);
 	}
 	balance.value = await calculateBalance();
 });
@@ -40,11 +40,14 @@ onMounted(async () => {
 	<div v-if="user" class="home-container">
 		<h1 class="home-head text-center">Hi {{user.name}}!</h1>
 		<h2 class="balance-message text-center">Your general balance is</h2>
-		<p :class=" {warning:warning }" class="text-center balance-amount">${{balance}}</p>
+		<p :class="{ warning:warning }" class="text-center balance-amount">${{balance}}</p>
 		<div class="list-container">
 			<h3 class="text-center list-header">Your latest operations</h3>
 			<ul v-for="operation in latestOperations" class="list">
-				<li class="list-item">{{ operation }}</li>
+				<li class="list-item">
+					<span>{{ operation.name }}</span>
+					<span class="item-amount">{{ operation.amount }}</span>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -53,22 +56,31 @@ onMounted(async () => {
 <style scoped>
 .home-container {
 	width: 90%;
-	height: 80vh;
+	min-height: 80vh;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 15px;
 	margin-bottom: 15px;
 	padding-top: 20px;
+	padding-bottom: 20px;
 	background-color: #fff;
 	border-radius: 5px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+}
+
+.home-head {
+	font-weight: inherit;
 }
 
 .balance-message {
 	margin-bottom: 15px;
+	font-weight: inherit;
 }
 
 .balance-amount {
 	margin-top: 0;
+	font-weight: inherit;
 	font-size: 1.7rem;
 }
 
@@ -81,6 +93,7 @@ onMounted(async () => {
 }
 
 .list-container {
+	max-width: 350px;
 	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
@@ -91,6 +104,7 @@ onMounted(async () => {
 	border-radius: 5px;
 	background-color: #343A40;
 	color: #ffffff;
+	font-weight: inherit;
 }
 
 .list {
@@ -100,11 +114,14 @@ onMounted(async () => {
 }
 
 .list-item {
-	padding: 5px;
+	padding: 5px 15px 5px 15px;
 	margin-bottom: 10px;
-	text-align: center;
-	border-radius: 5px;
-	background-color: #4ecca3;
+	font-weight: 300;
+	border-bottom: 1px solid #757575;
+}
+
+.item-amount {
+	float: right;
 }
 </style>
     
