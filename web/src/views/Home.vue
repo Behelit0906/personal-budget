@@ -1,6 +1,6 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 
 import { useAuthStore, useUserStore } from '../stores';
 
@@ -9,6 +9,7 @@ const userStore = useUserStore();
 const { user } = storeToRefs(authStore);
 const latestOperations = ref([]);
 const balance = ref(0);
+const warning = computed(() => balance.value < 0);
 
 async function calculateBalance() {
 	let ingress = 0;
@@ -39,7 +40,7 @@ onMounted(async () => {
 	<div v-if="user" class="home-container">
 		<h1 class="home-head text-center">Hi {{user.name}}!</h1>
 		<h2 class="balance-message text-center">Your general balance is</h2>
-		<p class="text-center balance-amount">${{balance}}</p>
+		<p :class=" {warning:warning }" class="text-center balance-amount">${{balance}}</p>
 		<div class="list-container">
 			<h3 class="text-center list-header">Your latest operations</h3>
 			<ul v-for="operation in latestOperations" class="list">
@@ -71,6 +72,10 @@ onMounted(async () => {
 	font-size: 1.7rem;
 }
 
+.warning {
+	color: red;
+}
+
 .text-center {
 	text-align: center;
 }
@@ -93,7 +98,6 @@ onMounted(async () => {
 	margin: 0;
 	padding: 0;
 }
-
 
 .list-item {
 	padding: 5px;
