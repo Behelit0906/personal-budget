@@ -8,6 +8,21 @@ const authStore = useAuthStore();
 const userStore = useUserStore();
 const { user } = storeToRefs(authStore);
 const latestOperations = ref([]);
+const balance = ref(0);
+
+async function calculateBalance() {
+	let ingress = 0;
+	let egress = 0;
+	const operations = await userStore.getAllOperations();
+	operations.data.forEach(op => {
+		if (op.type.toLowerCase() === 'egress')
+			egress += op.amount;
+		else
+			ingress += op.amount
+	});
+	return ingress - egress;
+}
+
 
 onMounted(async () => {
 	let operations = await userStore.getAllOperations();
@@ -16,6 +31,7 @@ onMounted(async () => {
 	for (let i = 0; i < operations.length; i++) {
 		latestOperations.value.push(operations[i].name);
 	}
+	balance.value = await calculateBalance();
 });
 </script>
     
