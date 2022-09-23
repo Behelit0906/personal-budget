@@ -24,6 +24,11 @@ async function calculateBalance() {
 	return ingress - egress;
 }
 
+const formatter = new Intl.NumberFormat('en-US', {
+	style: 'currency',
+	currency: 'USD',
+	minimumFractionDigits: 0
+})
 
 onMounted(async () => {
 	let operations = await userStore.getAllOperations();
@@ -40,13 +45,13 @@ onMounted(async () => {
 	<div v-if="user" class="home-container">
 		<h1 class="home-head text-center">Hi {{user.name}}!</h1>
 		<h2 class="balance-message text-center">Your general balance is</h2>
-		<p :class="{ warning:warning }" class="text-center balance-amount">${{balance}}</p>
+		<p :class="{ warning:warning }" class="text-center balance-amount">{{ formatter.format(balance) }}</p>
 		<div class="list-container">
 			<h3 class="text-center list-header">Your latest operations</h3>
 			<ul v-for="operation in latestOperations" class="list">
 				<li class="list-item">
 					<span>{{ operation.name }}</span>
-					<span class="item-amount">{{ operation.amount }}</span>
+					<span class="item-amount">{{ formatter.format(operation.amount) }}</span>
 				</li>
 			</ul>
 		</div>
