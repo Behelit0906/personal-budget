@@ -10,13 +10,13 @@ if (authStore.user) {
 </script>
     
 <template>
-    <div class="container">
+    <div class="account-container">
         <router-view />
     </div>
 </template>
 
 <style>
-.container {
+.account-container {
     max-width: 340px;
     margin: 5% auto;
     padding-top: 1%;
