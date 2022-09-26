@@ -30,4 +30,10 @@ onMounted(async () => {
 	pages.value = temp.numberOfPages;
 });
 
+const formatter = new Intl.NumberFormat('en-US', {
+	style: 'currency',
+	currency: 'USD',
+	minimumFractionDigits: 0
+});
+
 </script>
