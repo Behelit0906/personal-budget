@@ -71,7 +71,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 					<td>{{operation.date[0]}}</td>
 					<td>
 						<router-link to="" class="edit-btn">Edit</router-link>
-						<button class="delete-btn">Delete</button>
+						<button @click="deleteOperation(operation.id)" class="delete-btn">Delete</button>
 					</td>
 				</tr>
 			</tbody>
