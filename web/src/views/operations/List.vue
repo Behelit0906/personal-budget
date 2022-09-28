@@ -66,8 +66,8 @@ const formatter = new Intl.NumberFormat('en-US', {
 					<th class="table-header">Actions</th>
 				</tr>
 			</thead>
-			<tbody v-for="operation in operationsList">
-				<tr>
+			<tbody>
+				<tr v-for="operation in operationsList">
 					<td>{{operation.name}}</td>
 					<td>{{operation.type}}</td>
 					<td>{{formatter.format(operation.amount)}}</td>
