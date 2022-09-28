@@ -30,6 +30,7 @@ if (authStore.user) {
 .header {
     text-align: center;
     font-size: 1.5rem;
+    font-weight: 500;
 }
 
 .input {
