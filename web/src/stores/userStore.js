@@ -10,10 +10,12 @@ export const useUserStore = defineStore('user', () => {
 
   const getAllOperations = () => fetchWrapper.get(`${baseUrl}/operations/`);
 
+  const getOperationById = id => fetchWrapper.get(`${baseUrl}/operations/${id}`);
+
   const getANumberOfOperations = (page, limit) =>
     fetchWrapper.get(`${baseUrl}/operations/paginate?page=${page}&limit=${limit}`);
 
   const deleteOperation = id => fetchWrapper.delete(`${baseUrl}/operations/${id}`);
 
-  return { register, getAllOperations, getANumberOfOperations, deleteOperation };
+  return { register, getAllOperations, getOperationById, getANumberOfOperations, deleteOperation };
 });
