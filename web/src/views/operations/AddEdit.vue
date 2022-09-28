@@ -5,15 +5,16 @@ import { useRoute } from 'vue-router';
 
 import { useUserStore, useAlertStore } from '../../stores';
 import { router } from '../../router';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 
 const userStore = useUserStore();
 const alertStore = useAlertStore();
 const route = useRoute();
 const id = route.params.id;
 const operation = ref(null);
-let title = 'Add operation';
-
+let title = computed(() => {
+    return id ? 'Edit operation' : 'Add operation';
+});
 
 
 onMounted(async () => {
@@ -22,15 +23,14 @@ onMounted(async () => {
         if (!temp.data.length)
             await router.push('/operations');
 
-        else {
+        else
             operation.value = temp.data;
-            title = 'Edit operation';
-        }
     }
 });
 
 </script>
 
 <template>
+    <h1 class="operations-header">{{title}}</h1>
 
 </template>
