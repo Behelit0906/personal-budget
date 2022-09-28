@@ -44,7 +44,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 <template>
 	<h1 class="operations-header">Operations</h1>
-	<router-link to="" class="add-botton">Add Operation</router-link>
+	<router-link to="/operations/add" class="add-botton">Add Operation</router-link>
 
 	<div class="list-container">
 		<ul class="list" v-for="operation in operationsList">
