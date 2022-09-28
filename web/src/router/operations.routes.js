@@ -1,4 +1,4 @@
-import { Layout, List } from '../views/operations';
+import { Layout, List, AddEdit } from '../views/operations';
 
 export default {
   path: '/operations',
