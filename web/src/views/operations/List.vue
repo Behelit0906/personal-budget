@@ -17,11 +17,14 @@ async function getList() {
 	return temp;
 }
 
-async function deleteOperation(id) {
-	await userStore.deleteOperation(id);
-	const temp = await getList();
-	operationsList.value = temp.data;
-	pages.value = temp.numberOfPages;
+async function deleteOperation(operation) {
+	const confirm = window.confirm('Are you sure about to delete ' + operation.name + '?');
+	if (confirm) {
+		await userStore.deleteOperation(operation.id);
+		const temp = await getList();
+		operationsList.value = temp.data;
+		pages.value = temp.numberOfPages;
+	}
 }
 
 onMounted(async () => {
@@ -71,7 +74,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 					<td>{{operation.date[0]}}</td>
 					<td>
 						<router-link to="" class="edit-btn">Edit</router-link>
-						<button @click="deleteOperation(operation.id)" class="delete-btn">Delete</button>
+						<button @click="deleteOperation(operation)" class="delete-btn">Delete</button>
 					</td>
 				</tr>
 			</tbody>
