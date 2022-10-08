@@ -40,6 +40,24 @@ const schema = Yup.object().shape({
         .matches(/Egress|Income/g, 'Only Egress and Income are accepted as values')
 });
 
+async function onSubmit(values) {
+    try {
+        values.amount = Number(values.amount);
+        if (id) {
+            values.date = values.date[0];
+            delete values.type;
+            await userStore.updateOperation(id, values);
+        }
+        else {
+            await userStore.createOperation(values);
+        }
+
+        alertStore.success('Operation successful');
+    } catch (error) {
+        alertStore.error(error);
+    }
+}
+
 </script>
 
 <template>
