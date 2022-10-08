@@ -14,6 +14,7 @@ async function getList() {
 		op.date = op.date.match(/[0-9]*-[0-9]*-[0-9]*/g);
 		return op;
 	});
+	pages.value = temp.numberOfPages;
 	return temp;
 }
 
@@ -23,14 +24,12 @@ async function deleteOperation(operation) {
 		await userStore.deleteOperation(operation.id);
 		const temp = await getList();
 		operationsList.value = temp.data;
-		pages.value = temp.numberOfPages;
 	}
 }
 
 onMounted(async () => {
 	const temp = await getList();
 	operationsList.value = temp.data;
-	pages.value = temp.numberOfPages;
 });
 
 const formatter = new Intl.NumberFormat('en-US', {
