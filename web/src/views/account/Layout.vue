@@ -54,7 +54,7 @@ if (authStore.user) {
 .button {
     display: block;
     width: 70%;
-    margin: 15% auto 10% auto;
+    margin: 15% auto 10px auto;
     padding: 10px;
     border: none;
     border-radius: 20px;
