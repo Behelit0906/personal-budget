@@ -22,6 +22,7 @@ async function deleteOperation(operation) {
 	const confirm = window.confirm('Are you sure about to delete ' + operation.name + '?');
 	if (confirm) {
 		await userStore.deleteOperation(operation.id);
+		page.value = 1;
 		const temp = await getList();
 		operationsList.value = temp.data;
 	}
