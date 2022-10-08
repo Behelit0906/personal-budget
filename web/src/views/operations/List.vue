@@ -38,6 +38,20 @@ const formatter = new Intl.NumberFormat('en-US', {
 	minimumFractionDigits: 0
 });
 
+const previusPage = async () => {
+	if (page.value > 1) {
+		page.value--
+		const temp = await getList();
+		operationsList.value = temp.data;
+	}
+};
+const nextPage = async () => {
+	if (pages.value > page.value) {
+		page.value++
+		const temp = await getList();
+		operationsList.value = temp.data;
+	}
+};
 </script>
 
 
@@ -81,9 +95,9 @@ const formatter = new Intl.NumberFormat('en-US', {
 	</div>
 
 	<div class="pages-container">
-		<span class="previus-btn">Previus</span>
+		<span @click="previusPage" class="previus-btn">Previus</span>
 		<span class="page">{{page}}</span>
-		<span class="next-btn">Next</span>
+		<span @click="nextPage" class="next-btn">Next</span>
 	</div>
 
 </template>
