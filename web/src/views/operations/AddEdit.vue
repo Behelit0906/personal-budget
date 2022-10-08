@@ -30,34 +30,44 @@ onMounted(async () => {
     }
 });
 
+const schema = Yup.object().shape({
+    name: Yup.string()
+        .required('Name is required')
+        .matches(/^[a-z][a-z ]*([0-9]?){3,30}$/gi, 'The name must begin with letters and can only have numbers at the end'),
+    amount: Yup.number().required('Amount is required').positive(),
+    date: Yup.date().required('Date is required').min('1996-01-01').max('2100-01-01'),
+    type: Yup.string().required('Type is required')
+        .matches(/Egress|Income/g, 'Only Egress and Income are accepted as values')
+});
+
 </script>
 
 <template>
     <div class="operation-container">
         <h1 class="header">{{title}}</h1>
-        <Form class="form">
+        <Form class="form" @submit="onSubmit" :validation-schema="schema" v-slot="{ errors }">
             <div>
                 <p class="gray-font">Name</p>
                 <Field class="input" name="name" type="text" v-model="operation.name" />
-                <div class="feedback gray-font"></div>
+                <div class="feedback gray-font">{{errors.name}}</div>
             </div>
             <div>
                 <p class="gray-font">Amount</p>
                 <Field class="input" name="amount" type="number" v-model="operation.amount" />
-                <div class="feedback gray-font"></div>
+                <div class="feedback gray-font">{{errors.amount}}</div>
             </div>
             <div>
                 <p class="gray-font">Date</p>
                 <Field class="input" name="date" type="date" v-model="operation.date" />
-                <div class="feedback gray-font"></div>
+                <div class="feedback gray-font">{{errors.date}}</div>
             </div>
-            <div>
+            <div v-show="!id">
                 <label class="gray-font">Type </label>
                 <Field name="type" as="select" class="select" v-model="operation.type">
                     <option class="select" value="Income">Income</option>
                     <option class="select" value="Egress">Egress</option>
                 </Field>
-                <div class="feedback gray-font"></div>
+                <div class="feedback gray-font">{{errors.type}}</div>
             </div>
             <button class="button">Save</button>
         </Form>
