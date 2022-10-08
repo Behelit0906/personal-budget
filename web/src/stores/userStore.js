@@ -17,5 +17,19 @@ export const useUserStore = defineStore('user', () => {
 
   const deleteOperation = id => fetchWrapper.delete(`${baseUrl}/operations/${id}`);
 
-  return { register, getAllOperations, getOperationById, getANumberOfOperations, deleteOperation };
+  const createOperation = operationData =>
+    fetchWrapper.post(`${baseUrl}/operations/`, operationData);
+
+  const updateOperation = (id, operationData) =>
+    fetchWrapper.patch(`${baseUrl}/operations/${id}`, operationData);
+
+  return {
+    register,
+    getAllOperations,
+    getOperationById,
+    getANumberOfOperations,
+    deleteOperation,
+    createOperation,
+    updateOperation,
+  };
 });
