@@ -50,6 +50,6 @@ async function handleResponse(response) {
 export const fetchWrapper = {
   get: request('GET'),
   post: request('POST'),
-  put: request('PUT'),
+  patch: request('PATCH'),
   delete: request('DELETE'),
 };
