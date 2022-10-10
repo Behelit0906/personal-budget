@@ -6,13 +6,16 @@ const isActive = ref('');
 const authStore = useAuthStore();
 
 function active() {
-    if (!isActive.value)
+    if (!isActive.value) {
         isActive.value = 'show';
+        document.querySelector('body').classList.toggle('overflow-hidden');
+    }
 
     else {
         isActive.value = 'hide';
         setTimeout(() => {
             isActive.value = '';
+            document.querySelector('body').classList.toggle('overflow-hidden');
         }, 490);
     }
 }
