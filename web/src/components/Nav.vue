@@ -30,13 +30,13 @@ function active() {
             <img src="../assets/icons/menu.svg" alt="hamburguer-menu" @click="active" class="menu-icon">
             <div class="mobile-menu-options-container" :class="isActive">
                 <ul class="mobile-menu-list">
-                    <li>
+                    <li @click="active">
                         <router-link to="/">Home</router-link>
                     </li>
-                    <li>
+                    <li @click="active">
                         <router-link to="/operations">Operations</router-link>
                     </li>
-                    <li>
+                    <li @click="active">
                         <button @click="authStore.logout()">Logout</button>
                     </li>
                 </ul>
