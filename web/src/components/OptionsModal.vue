@@ -1,5 +1,5 @@
 <script setup>
-const emit = defineEmits(['action']);
+const emit = defineEmits(['action', 'close']);
 
 function send(actionName) {
     emit('action', actionName);
@@ -7,7 +7,7 @@ function send(actionName) {
 </script>
 
 <template>
-    <div class="background">
+    <div @click="emit('close')" class="background">
         <div>
             <button @click="send('edit')" class="option-button add-btn">Edit</button>
             <button @click="send('delete')" class="option-button delete-btn">Delete</button>
