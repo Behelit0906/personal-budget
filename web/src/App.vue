@@ -16,4 +16,8 @@ const authStore = useAuthStore();
 body {
     background-color: #4ecca3;
 }
+
+.overflow-hidden {
+    overflow: hidden;
+}
 </style>
