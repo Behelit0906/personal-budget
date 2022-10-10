@@ -1,12 +1,17 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useUserStore } from '../../stores';
+import { router } from '../../router';
+import OptionsModal from '../../components/OptionsModal.vue';
 
 const page = ref(1);
 const limit = ref(5);
 const userStore = useUserStore();
 const operationsList = ref([]);
 const pages = ref(0);
+const showModal = ref(false);
+const selectedOperation = ref(null);
+
 
 async function getList() {
 	let temp = await userStore.getANumberOfOperations(page.value, limit.value);
@@ -53,6 +58,20 @@ const nextPage = async () => {
 		operationsList.value = temp.data;
 	}
 };
+
+function openCloseModal() {
+	showModal.value = !showModal.value;
+	document.querySelector('body').classList.toggle('overflow-hidden');
+}
+
+async function mobileActionsExecutor(actionName) {
+	if (actionName === 'delete') {
+		await deleteOperation(selectedOperation.value);
+		openCloseModal();
+	}
+	else
+		await router.push(`/operations/edit/${selectedOperation.value.id}`);
+}	
 </script>
 
 
@@ -61,8 +80,10 @@ const nextPage = async () => {
 	<router-link to="/operations/add" class="add-botton">Add Operation</router-link>
 
 	<div class="list-container">
+		<OptionsModal v-if="showModal" @action="(actionName) => mobileActionsExecutor(actionName)"
+			@close="openCloseModal" />
 		<ul class="list" v-for="operation in operationsList">
-			<li class="list-item">
+			<li @click="() => {showModal = true; selectedOperation = operation; }" class="list-item">
 				<p>{{operation.type}} - {{operation.name}}</p>
 				<p>{{formatter.format(operation.amount)}}</p>
 			</li>
