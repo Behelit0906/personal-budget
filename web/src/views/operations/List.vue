@@ -83,7 +83,7 @@ async function mobileActionsExecutor(actionName) {
 		<OptionsModal v-if="showModal" @action="(actionName) => mobileActionsExecutor(actionName)"
 			@close="openCloseModal" />
 		<ul class="list" v-for="operation in operationsList">
-			<li @click="() => {showModal = true; selectedOperation = operation; }" class="list-item">
+			<li @click="() => {openCloseModal(); selectedOperation = operation; }" class="list-item">
 				<p>{{operation.type}} - {{operation.name}}</p>
 				<p>{{formatter.format(operation.amount)}}</p>
 			</li>
