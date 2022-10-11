@@ -7,7 +7,8 @@
 <br>
 <h1>API</h1>
 <img src="./screenshots/documentation.png" />
-<p>The project's api is developed under the layered architecture and has a token-based authentication system.</p>
+<p>The project's api is developed under the layered architecture and has a token-based authentication system. It has endpoints to register and authenticate users by means of tokens as well as endpoints for the basic operations of the transaction crud. </p>
+
 
 <br>
 <h1>Client</h1>
