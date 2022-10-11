@@ -1,9 +1,16 @@
 <script setup>
 import { useAuthStore } from '../stores';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const isActive = ref('');
 const authStore = useAuthStore();
+
+onMounted(() => window.addEventListener("resize", myEventHandler));
+
+function myEventHandler() {
+    if (isActive.value === 'show')
+        active();
+}
 
 function active() {
     if (!isActive.value) {
